@@ -1,6 +1,7 @@
 package com.github.qczone.switch2cursor.actions
 
 import com.github.qczone.switch2cursor.settings.AppSettingsState
+import com.github.qczone.switch2cursor.utils.PathUtils
 import com.github.qczone.switch2cursor.utils.WindowUtils
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -27,7 +28,8 @@ class OpenFileInCursorAction : AnAction() {
         val line = editor?.caretModel?.logicalPosition?.line?.plus(1) ?: 1
         val column = editor?.caretModel?.logicalPosition?.column?.plus(1) ?: 1
         
-        val filePath = virtualFile.path
+        val filePath = PathUtils.normalizePath(virtualFile.path)
+        if (filePath.isEmpty()) return
         val settings = AppSettingsState.getInstance()
         val cursorPath = settings.cursorPath
         

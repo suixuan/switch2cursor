@@ -1,6 +1,7 @@
 package com.github.qczone.switch2cursor.actions
 
 import com.github.qczone.switch2cursor.settings.AppSettingsState
+import com.github.qczone.switch2cursor.utils.PathUtils
 import com.github.qczone.switch2cursor.utils.WindowUtils
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -17,7 +18,8 @@ class OpenProjectInCursorAction : AnAction() {
 
     override fun actionPerformed(e: AnActionEvent) {
         val project: Project = e.project ?: return
-        val projectPath = project.basePath ?: return
+        val projectPath = PathUtils.normalizePath(project.basePath)
+        if (projectPath.isEmpty()) return
 
         val settings = AppSettingsState.getInstance()
         val cursorPath = settings.cursorPath

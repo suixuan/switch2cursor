@@ -1,51 +1,57 @@
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.9.25"
-    id("org.jetbrains.intellij") version "1.17.4"
+    id("org.jetbrains.kotlin.jvm") version "2.1.0"
+    // 升级到全新的 IntelliJ Platform Gradle Plugin (2.x)
+    id("org.jetbrains.intellij.platform") version "2.16.0"
 }
 
 group = "com.github.qczone"
 version = "1.0.3"
 
-
 repositories {
     mavenCentral()
+    // 新插件需要的仓库配置
+    intellijPlatform {
+        defaultRepositories()
+    }
 }
 
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
-intellij {
-    version.set("2022.3")
-    type.set("IC") // Target IDE Platform
-    pluginName.set("Switch2Cursor")
-    updateSinceUntilBuild.set(true)
-    sameSinceUntilBuild.set(false)
-
-    plugins.set(listOf(/* Plugin Dependencies */))
+dependencies {
+    // 方式 B：指定本地 IDEA 路径作为依赖
+    intellijPlatform {
+        local(file("D:/develop/jetbrains/ideaIU-2025.2.6.win"))
+    }
 }
 
-tasks {
-    // Set the JVM compatibility versions
-    withType<JavaCompile> {
-        sourceCompatibility = "17"
-        targetCompatibility = "17"
+intellijPlatform {
+    pluginConfiguration {
+        id.set("com.github.qczone.switch2ai.local")
+        name.set("Switch2AI-Local")
+        
+        ideaVersion {
+            sinceBuild.set("252")
+            untilBuild.set("")
+        }
     }
-    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions.jvmTarget = "17"
-    }
-
-    patchPluginXml {
-        sinceBuild.set("223")
-        untilBuild.set("")
-    }
-
-    signPlugin {
+    
+    signing {
         certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
         privateKey.set(System.getenv("PRIVATE_KEY"))
         password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
     }
 
-    publishPlugin {
+    publishing {
         token.set(System.getenv("PUBLISH_TOKEN"))
+    }
+}
+
+tasks {
+    // 设置 JVM 兼容性
+    withType<JavaCompile> {
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
+    }
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }

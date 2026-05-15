@@ -3,4 +3,5 @@
 .vscode/
 build/
 *.DS_Store
-bin/
+bin/.intellijPlatform
+.intellijPlatform

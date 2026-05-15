@@ -1,49 +1,10 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html --><!DOCTYPE idea-plugin [
-    <!ELEMENT idea-plugin (id|name|vendor|description|depends|extensions|actions|change-notes)*>
-    <!ELEMENT id (#PCDATA)>
-    <!ELEMENT name (#PCDATA)>
-    <!ELEMENT vendor (#PCDATA)>
-    <!ATTLIST vendor
-        email CDATA #REQUIRED
-        url CDATA #REQUIRED>
-    <!ELEMENT description (#PCDATA)>
-    <!ELEMENT depends (#PCDATA)>
-    <!ELEMENT extensions (applicationService|applicationConfigurable)*>
-    <!ATTLIST extensions
-        defaultExtensionNs CDATA #REQUIRED>
-    <!ELEMENT applicationService (#PCDATA)>
-    <!ATTLIST applicationService
-        serviceImplementation CDATA #REQUIRED>
-    <!ELEMENT applicationConfigurable (#PCDATA)>
-    <!ATTLIST applicationConfigurable
-        parentId CDATA #REQUIRED
-        instance CDATA #REQUIRED
-        id CDATA #REQUIRED
-        displayName CDATA #REQUIRED>
-    <!ELEMENT actions (action)*>
-    <!ELEMENT action (add-to-group|keyboard-shortcut)*>
-    <!ATTLIST action
-        id CDATA #REQUIRED
-        class CDATA #REQUIRED
-        text CDATA #REQUIRED
-        description CDATA #REQUIRED>
-    <!ELEMENT add-to-group (#PCDATA)>
-    <!ATTLIST add-to-group
-        anchor CDATA #REQUIRED
-        group-id CDATA #REQUIRED>
-    <!ELEMENT keyboard-shortcut (#PCDATA)>
-    <!ATTLIST keyboard-shortcut
-        keymap CDATA #REQUIRED
-        first-keystroke CDATA #REQUIRED>
-    <!ELEMENT change-notes (#PCDATA)>
-    ]>
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>com.github.qczone.switch2cursor</id>
+    <id>com.github.qczone.switch2ai.local</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>Switch2Cursor</name>
+    <name>Switch2AI-Local</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor email="quchaozhong@gmail.com" url="https://github.com/qczone">qczone</vendor>
@@ -52,7 +13,7 @@
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    <p>Switch2Cursor is a JetBrains IDE plugin that enables seamless switching between IDE and Cursor while maintaining precise cursor position.</p>
+    <p>Switch2AI is a JetBrains IDE plugin that enables seamless switching between IDE and AI Editors (like Cursor) while maintaining precise cursor position.</p>
 
     <h2>Key Features</h2>
     <ul>
@@ -102,7 +63,7 @@
 
     <hr/>
 
-    <p>Switch2Cursor 是一个 JetBrains IDE 插件，可以让你在 IDE 和 Cursor 之间无缝切换，并保持精确的光标位置。</p>
+    <p>Switch2AI 是一个 JetBrains IDE 插件，可以让你在 IDE 和 AI 编辑器（如 Cursor）之间无缝切换，并保持精确的光标位置。</p>
 
     <h2>主要特性</h2>
     <ul>
@@ -163,20 +124,20 @@
             parentId="tools"
             instance="com.github.qczone.switch2cursor.settings.AppSettingsConfigurable"
             id="com.github.qczone.switch2cursor.settings.AppSettingsConfigurable"
-            displayName="Switch2Cursor"/>
+            displayName="Switch2AI-Local"/>
     </extensions>
 
     <actions>
-        <action id="OpenFileInCursor" class="com.github.qczone.switch2cursor.actions.OpenFileInCursorAction"
-            text="Open File In Cursor" description="Open current file in Cursor">
+        <action id="OpenFileInAI" class="com.github.qczone.switch2cursor.actions.OpenFileInCursorAction"
+            text="Open File In AI Editor" description="Open current file in AI Editor">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
             <keyboard-shortcut keymap="$default" first-keystroke="alt shift O"/>
         </action>
 
-        <action id="OpenProjectInCursor" class="com.github.qczone.switch2cursor.actions.OpenProjectInCursorAction"
-            text="Open Project In Cursor" description="Open current project in Cursor">
+        <action id="OpenProjectInAI" class="com.github.qczone.switch2cursor.actions.OpenProjectInCursorAction"
+            text="Open Project In AI Editor" description="Open current project in AI Editor">
             <add-to-group group-id="ToolsMenu" anchor="first"/>
             <add-to-group group-id="ProjectViewPopupMenu" anchor="first"/>
             <keyboard-shortcut keymap="$default" first-keystroke="alt shift P"/>
